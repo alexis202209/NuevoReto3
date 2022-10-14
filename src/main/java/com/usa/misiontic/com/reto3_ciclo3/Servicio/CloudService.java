@@ -11,14 +11,14 @@ import java.util.Optional;
 
 @Service
 public class CloudService {
-
     @Autowired
     private CloudRepository cloudRepository;
 
     public List<Cloud> getAll() {
         return cloudRepository.getAll();
     }
-    public Optional<Cloud> getCategory(int id) {
+
+    public Optional<Cloud> getCloud(int id) {
         return cloudRepository.getCloud(id);
     }
     public Cloud save(Cloud clo) {
@@ -39,13 +39,6 @@ public class CloudService {
         if (clo.getId() != null) {
             Optional<Cloud> clo1 = cloudRepository.getCloud(clo.getId());
             if (clo1.isPresent()) {
-                //}
-                //if (clo.getMessages() != null) {
-                // clo1.get().setMessages(clo.getMessages());
-                //}
-                //if (clo.getReservations() != null) {
-                // clo1.get().setReservations(clo.getReservations());
-
                 if (clo.getName() != null) {
                     clo1.get().setName(clo.getName());
                 }
@@ -73,14 +66,14 @@ public class CloudService {
     }
 
     public boolean delete ( int id){
-        boolean flag = false;
-        Optional<Cloud> clo = cloudRepository.getCloud(id);
-        if (clo.isPresent()) {
-            cloudRepository.delete(clo.get());
-            flag = true;
-        }
-        return flag;
+        boolean clo = getCloud(id).map(cloud -> {
+            cloudRepository.delete(cloud);
+            return true;
+        }).orElse(false);
+        return clo;
     }
+
+
 
 }
 

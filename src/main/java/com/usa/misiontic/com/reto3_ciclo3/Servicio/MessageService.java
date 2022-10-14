@@ -35,7 +35,7 @@ public class MessageService {
         }
     }
 
-    public Message update(Message m){
+    public Message update (Message m){
         if(m.getIdMessage() !=null){
             Optional<Message> me = messageRepository.getMessage(m.getIdMessage());
             if (me.isPresent()){
@@ -56,4 +56,14 @@ public class MessageService {
         }
 
     }
+
+    public boolean delete ( int id){
+        boolean m = getMessage(id).map(message -> {
+            messageRepository.delete(message);
+            return true;
+        }).orElse(false);
+        return m;
+    }
+
+
 }

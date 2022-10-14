@@ -1,5 +1,6 @@
 package com.usa.misiontic.com.reto3_ciclo3.Controlador;
 
+import com.usa.misiontic.com.reto3_ciclo3.Modelo.Reservation;
 import com.usa.misiontic.com.reto3_ciclo3.Modelo.Score;
 import com.usa.misiontic.com.reto3_ciclo3.Servicio.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,19 @@ public class ScoreController {
     @ResponseStatus(HttpStatus.CREATED)
     public Score save(@RequestBody Score score){
         return scoreService.save(score);
+    }
+
+    @PutMapping("update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Score update(@RequestBody Score score){
+        return scoreService.update(score);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+
+    public boolean delete(@PathVariable("id") int id){
+        return scoreService.delete(id);
     }
 
 }

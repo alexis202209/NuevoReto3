@@ -35,7 +35,7 @@ public class ClientService {
         }
     }
 
-    public Client Update(Client c) {
+    public Client update  (Client c) {
         if (c.getIdClient() != null) {
             Optional<Client> cl = clientRepository.getClient(c.getIdClient());
             if (cl.isPresent()){
@@ -62,13 +62,15 @@ public class ClientService {
 
     }
 
-    public boolean delete (int id){
-        boolean flag=false;
-        Optional<Client> c = clientRepository.getClient(id);
-        if(c.isPresent()){
-            clientRepository.delete(c.get());
-            flag=true;
-        }
-        return flag;
+
+    public boolean delete ( int id){
+        boolean c = getClient(id).map(client -> {
+            clientRepository.delete(client);
+            return true;
+        }).orElse(false);
+        return c;
     }
+
+
 }
+

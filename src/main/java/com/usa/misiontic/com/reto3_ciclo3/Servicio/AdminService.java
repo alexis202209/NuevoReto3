@@ -35,6 +35,7 @@ public class AdminService {
         }
 
     }
+
     public Admin update(Admin admin){
         if(admin.getIdAdmin()!=null) {
             Optional<Admin> admin1= adminRepository.getAdmin(admin.getIdAdmin());
@@ -50,15 +51,17 @@ public class AdminService {
         }
         return admin;
     }
-    public boolean delete (int id){
-        boolean flag=false;
-        Optional<Admin> admin = adminRepository.getAdmin(id);
-        if(admin.isPresent()){
-            adminRepository.delete(admin.get());
-            flag=true;
-        }
-        return flag;
+
+    public boolean delete ( int id){
+        boolean a = getAdmin(id).map(admin -> {
+            adminRepository.delete(admin);
+            return true;
+        }).orElse(false);
+        return a;
     }
+
+
+
 
 
 }

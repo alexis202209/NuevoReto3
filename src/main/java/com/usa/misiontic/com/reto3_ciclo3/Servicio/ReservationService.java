@@ -37,7 +37,7 @@ public class ReservationService {
 
     }
 
-    public Reservation Update(Reservation r) {
+    public Reservation update (Reservation r) {
         if (r.getIdReservation() != null) {
             Optional<Reservation> re = reservationRepository.getReservation(r.getIdReservation());
             if (re.isPresent()){
@@ -63,5 +63,14 @@ public class ReservationService {
         }
 
     }
+    public boolean delete ( int id){
+        boolean r = getReservation(id).map(reservation -> {
+            reservationRepository.delete(reservation);
+            return true;
+        }).orElse(false);
+        return r;
+    }
+
+
 
 }
